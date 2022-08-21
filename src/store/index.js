@@ -6,9 +6,14 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
       state:{
-        msg:123
+        msg:123,
+        cartList:[]
       },
       mutations:{
+        addCart(state,payLoad){
+          //接受外来参数，存入本地状态
+            state.cartList.push(payLoad)
+        },
         mutationTest(state){
           console.log('mutations',state);
         }

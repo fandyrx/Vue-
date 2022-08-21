@@ -44,7 +44,8 @@ import NavBar from '@/components/common/navbar/NavBar.vue'
 import TabControl from '@/components/content/tabControl/TabControl'
 import GoodsList from '@/components/content/goods/GoodsList'
 import Scroll from '@/components/common/scroll/Scroll'
-import BackTop from '@/components/common/backTop/BackTop'
+//混入
+import { backTopMixIn } from '@/utils/mixin'
 
 //防抖函数引入
 import { debounce } from '@/utils/debounce'
@@ -59,9 +60,10 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop
+    
   
   },
+  mixins:[backTopMixIn] ,
   data(){
     return{
        banners: [] ,
@@ -72,10 +74,11 @@ export default {
         'sell': {page: 0,list:[]},
        },
        currentType:'pop',
-       isShow: false,
+       
        tabOffsetTop:'',
        isTabFixed: false,
-       saveY: 0
+       saveY: 0,
+       itemImgListener: null
 
     }
    
@@ -92,19 +95,26 @@ export default {
   },
   mounted(){
       //监听推荐区图片加载完成
-    const refresh = debounce(this.$refs.scroll.refresh,50)
-    this.$bus.$on("itemImageLoad",()=>{
-      refresh();
-    })
+    const newRefresh = debounce(this.$refs.scroll.refresh,50)
+    //保存监听回调
+    this.itemImgListener = ()=>{ newRefresh();}
+    
+    this.$bus.$on("itemImageLoad",this.itemImgListener)
   },
   //keep alive时可使用 组件激活/不激活回调
     activated(){
-       this.$refs.scroll.scrollTo(0,this.saveY,0)
-       this.$refs.scroll.refresh()
+       this.$refs.scroll.scrollTo(0,this.saveY,50)
+    
+       
     },
     deactivated(){
     //新版本好像不需要这样操作，自动保存状态了？
         this.saveY = this.$refs.scroll.getScrollY()
+        
+
+    //取消监听
+        this.$bus.$off('imageItemLoad',this.itemImgListener)
+       
     },
   
   methods: {
@@ -130,10 +140,7 @@ export default {
         this.$refs.tabControl.currentIndex = index
 
     },
-    //回到顶部
-    backClick() {
-        this.$refs.scroll.scrollTo(0,0,500)
-    },
+   
     //滚动监听
     contentScroll(position) {
       //回到顶部是否显示

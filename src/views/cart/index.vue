@@ -1,15 +1,39 @@
 <template>
   <div>
-        cart组件
+        <nav-bar class="nav-bar"><div slot="center">购物车({{cartLength}})</div></nav-bar>
+        <cart-list />
+        <cart-bottom-bar/>
   </div>
 </template>
 
 <script>
+import NavBar from '@/components/common/navbar/NavBar'
+import cartBottomBar from '@/views/cart/childComps/cartBottomBar'
+import cartList from '@/views/cart/childComps/cartList'
 export default {
-  name:'Cart'
+  name:'Cart',
+  
+  components:{
+    NavBar,
+    cartBottomBar,
+    cartList
+  },
+  computed:{
+    cartLength(){
+      return this.$store.state.cartList.length
+    },
+   
+  },
+  mounted(){
+   
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+  .nav-bar { 
+    background-color: var(--color-tint);
+    color: #fff
+  }
+  
 </style>
