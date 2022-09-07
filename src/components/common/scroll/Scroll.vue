@@ -21,6 +21,13 @@ export default {
             return 0
           }
         },
+        data: {
+          // 用于监视数据更新,refresh scroll实例获取高度
+		      type: Array,
+          default: () => {
+          return []
+         }
+        },
         pullUpLoad: {
             type: Boolean,
             default: false
@@ -80,6 +87,11 @@ export default {
       }
 
 
+    },
+     watch: {
+		  data() {
+        setTimeout(this.refresh, 20)
+      }
     }
 }
 </script>

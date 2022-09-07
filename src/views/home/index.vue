@@ -1,21 +1,23 @@
 <template>
   <div id="home">
            <nav-bar class="home-nav"></nav-bar>
+         
            <!-- 吸顶用 -->
             <tab-control  
-          :titles="['流行','新款','精选']"
-          @tabClick="tabClick"
-          ref="tabControl1"
-          class="tab-control"
-          :class="{fixed:isTabFixed}"
-          v-show="isTabFixed"
-        ></tab-control>
-      <scroll class="content" ref="scroll" 
-        :probe-type='3'
-        :pull-up-load="true"
-        @scroll="contentScroll"
-        @pullingUp="loadMore"
-       >
+                :titles="['流行','新款','精选']"
+                @tabClick="tabClick"
+                ref="tabControl1"
+                class="tab-control"
+                :class="{fixed:isTabFixed}"
+                v-show="isTabFixed"
+            />
+
+          <scroll class="content" ref="scroll" 
+              :probe-type='3'
+              :pull-up-load="true"
+              @scroll="contentScroll"
+              @pullingUp="loadMore"
+            >  
           <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad"></home-swiper>
           <recommend-view :recommends='recommends'></recommend-view>
           <feature-view></feature-view>
@@ -25,7 +27,7 @@
           ref="tabControl"
           :class="{fixed:isTabFixed}"></tab-control>
           <goods-list :goods="showGoods"></goods-list> 
-      </scroll>
+          </scroll>
       
       <back-top @click.native="backClick" v-show="isShow"></back-top>
 

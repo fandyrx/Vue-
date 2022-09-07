@@ -1,4 +1,5 @@
 <template>
+
    <Swiper>
       <SwiperItem v-for="(item,index) in banners" :key="index">
           <a :href="item.link">
@@ -6,6 +7,14 @@
           </a>
       </SwiperItem> 
     </Swiper>
+   
+        
+         
+      
+          
+   
+
+ 
 </template>
 
 <script>
@@ -31,9 +40,11 @@ export default {
     },
     methods:{
       imageLoad(){
+       
         if(!this.isLoad){
             this.$emit('swiperImageLoad')
              this.isLoad = true; 
+            
         }
         
       }

@@ -157,7 +157,10 @@ export default {
           //3. 
           let length = this.themeTopYs.length
           for(let i = 0; i < length-1 ; i++){
-              if( this.currentIndex !==i && (positionY > this.themeTopYs[parseInt(i)] && positionY < this.themeTopYs[i+1])){
+              if( this.currentIndex !==i 
+              && (positionY > this.themeTopYs[parseInt(i)] 
+              && positionY < this.themeTopYs[i+1])
+              ){
                 console.log(i);
                 this.currentIndex = i ;
                 this.$refs.nav.currentIndex = this.currentIndex

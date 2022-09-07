@@ -2,11 +2,11 @@ import VueRouter from 'vue-router';
 import Vue  from 'vue';
 //1.引入VUE,VueRouter插件，等下使用
 const Home = ()=> import ('@/views/home')
-const Category= ()=>import   ("@/views/category")
+const Category= ()=>import   ("@/views/category/Category.vue")
 const Cart = ()=>import ("@/views/cart")
 const Profile =()=> import  ("@/views/profile")
 const Detail =()=> import ("@/views/detail/Detail.vue")
-const CategoryItem = ()=> import ("@/views/category/childComps/CategoryItem.vue")
+
 
 Vue.use(VueRouter);
 //2.使用路由插件 
@@ -31,13 +31,7 @@ const routes= [
   {
     path:'/category',
     component: Category,
-    children:[
-      {
-        path:"CategoryItem",
-        name:"categoryItem",
-        component:CategoryItem
-      }
-    ]
+   
   },
   {
     path:'/cart',

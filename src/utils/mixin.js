@@ -1,5 +1,6 @@
 import BackTop from '@/components/common/backTop/BackTop'
 
+//返回顶部按钮
 export const  backTopMixIn = {
   components:  {
     BackTop
@@ -17,3 +18,11 @@ export const  backTopMixIn = {
   }
 
 }
+
+
+
+
+export const POP = 'pop';
+export const NEW = 'new';
+export const SELL = 'sell';
+
