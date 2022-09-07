@@ -13,7 +13,7 @@
           <detail-comment-info :commentInfo="commentInfo" ref="comment"></detail-comment-info>
           <goods-list :goods='commend' ref="recommend"></goods-list>
       </scroll>
-       <detail-bottom-bar @addCart="addCart"></detail-bottom-bar>
+       <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
       <back-top @click.native="backClick" v-show="isShow"></back-top>
   </div>
 </template>
@@ -35,6 +35,8 @@ import { backTopMixIn } from '@/utils/mixin'
 
 import { Goods , Shop , GoodsParam} from "@/api/detail/index"
 import {debounce} from '@/utils/debounce'
+
+import { mapActions } from 'vuex'
 export default {
   
   name: 'Detail',
@@ -79,7 +81,7 @@ export default {
 
       //获取商品信息
       this.goods = new Goods(data.itemInfo,data.columns,data.shopInfo.services)
-
+      
       //获取商店信息
       this.shop =new Shop(data.shopInfo)
       //商品详情
@@ -119,6 +121,7 @@ export default {
     })
   },   
   methods:{
+    ...mapActions(["addCart"]),
     imgLoad(){
       // this.$refs.scroll.refresh()
       this.newRefresh()
@@ -168,14 +171,20 @@ export default {
       this.$refs.scroll.scrollTo(0,-this.themeTopYs[index],500)
     } ,
     //添加购物车
-    addCart(){
-      
+    addToCart(){
+        console.log("已添加");
         const product = {}
-       
+      
         product.image = this.topImages[0]
         product.title = this.goods.title
-        this.$store.commit('addCart',product)
+        product.desc = this.goods.desc
+        product.price = this.goods.realPrice
+        product.iid = this.iid
         
+        this.addCart(product).then(res=>{
+            this.$toast.show(res,2000)
+          })
+       
     }
   }
  
@@ -195,6 +204,7 @@ export default {
   .content{
     height: calc(100% - 44px - 49px);
     padding-top: 5px;
+    overflow: hidden;
     /* 跳转标题高度嵌入？ */
    
   }

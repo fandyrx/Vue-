@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cart">
         <nav-bar class="nav-bar"><div slot="center">购物车({{cartLength}})</div></nav-bar>
         <cart-list />
         <cart-bottom-bar/>
@@ -31,6 +31,9 @@ export default {
 </script>
 
 <style scoped>
+.cart{
+  height: 100vh;
+}
   .nav-bar { 
     background-color: var(--color-tint);
     color: #fff

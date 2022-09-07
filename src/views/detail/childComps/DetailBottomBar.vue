@@ -12,7 +12,7 @@
 
 
       <div class="bar-item shop-car"  >
-          <span @click="goShop">加入购物车</span>
+          <span @click=" addCart">加入购物车</span>
           <span>购买</span>
       </div>
  </div>
@@ -28,7 +28,7 @@ export default {
    
   },
   methods: {
-    goShop(){
+    addCart(){
       this.$emit('addCart')
     }
   }
@@ -38,12 +38,12 @@ export default {
 
 <style scoped>
 .bottom-bar-list{
-  height: 50px;
-  background-color: #fff;
-
-  display: flex;
-  position: relative;
+ position: relative;
   
+   height: 49px;
+   background-color: #fff;
+
+   display: flex;
   text-align: center;
 }
 .bar-item {

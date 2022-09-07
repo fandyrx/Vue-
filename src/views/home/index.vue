@@ -11,7 +11,7 @@
           v-show="isTabFixed"
         ></tab-control>
       <scroll class="content" ref="scroll" 
-       :probe-type='3'
+        :probe-type='3'
         :pull-up-load="true"
         @scroll="contentScroll"
         @pullingUp="loadMore"
@@ -103,9 +103,9 @@ export default {
   },
   //keep alive时可使用 组件激活/不激活回调
     activated(){
-       this.$refs.scroll.scrollTo(0,this.saveY,50)
-    
-       
+      this.$refs.scroll.refresh()
+       this.$refs.scroll.scrollTo(0, this.saveY , 0)
+        
     },
     deactivated(){
     //新版本好像不需要这样操作，自动保存状态了？
@@ -229,7 +229,7 @@ export default {
  
   .content{
 
-      /* height: 500px; */
+    
       position: absolute;
       top: 44px;
       bottom: 49px;

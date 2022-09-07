@@ -1,4 +1,4 @@
-# vue_practice
+# vue_practice 蘑菇街
 
 ## Project setup
 ```

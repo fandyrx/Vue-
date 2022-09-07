@@ -1,17 +1,34 @@
 <template>
-  <div class="cart-list">
-    <div v-for="(goods,index) in cartInfo" :key='index' >
-      <div>{{goods.title}}</div>
-      <img :src="goods.image" alt="">
+   <div class="cart-list">
+    
+      <Scroll class="content" ref="scroll" :pullUpLoad='true' >
+          <cart-list-item 
+              v-for="(item,index) in  cartInfo"
+              :key="index"
+              :item-info  ="item"  >
+          </cart-list-item>
+      </Scroll>
+
     </div>
- </div>
 </template>
 
 <script>
+
+import Scroll from '@/components/common/scroll/Scroll.vue'
+import CartListItem from '@/views/cart/childComps/cartListItem'
 export default {
+  
   name: 'cartList',
   mounted() {
       
+  },
+  components:{
+   Scroll,
+   CartListItem
+  },
+  activated(){
+    
+    this.$refs.scroll.refresh()
   },
   computed:{
       cartInfo() {
@@ -23,5 +40,14 @@ export default {
 </script>
 
 <style scoped>
+    .cart-list{
+       height: calc(100% - 44px - 49px - 40px);
+        
+    }
 
+  .content{
+    height: 100%;
+    overflow: hidden;
+    
+  }
 </style>

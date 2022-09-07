@@ -6,9 +6,17 @@ const Category= ()=>import   ("@/views/category")
 const Cart = ()=>import ("@/views/cart")
 const Profile =()=> import  ("@/views/profile")
 const Detail =()=> import ("@/views/detail/Detail.vue")
+const CategoryItem = ()=> import ("@/views/category/childComps/CategoryItem.vue")
 
 Vue.use(VueRouter);
 //2.使用路由插件 
+
+//获取原型对象上的push函数
+const originalPush = VueRouter.prototype.push
+//修改原型对象中的push方法 ,重复跳转报错
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 
 const routes= [
@@ -22,7 +30,14 @@ const routes= [
   },
   {
     path:'/category',
-    component: Category
+    component: Category,
+    children:[
+      {
+        path:"CategoryItem",
+        name:"categoryItem",
+        component:CategoryItem
+      }
+    ]
   },
   {
     path:'/cart',

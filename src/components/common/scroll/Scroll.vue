@@ -61,6 +61,7 @@ export default {
       
     },
     methods:{
+      
       //2.返回顶部方法
       scrollTo(x,y, time = 300){
           //判断组件实例创建与否，已创建再执行，否则报错  下方可同理操作
@@ -68,7 +69,7 @@ export default {
       },
       //结束上拉
       finishPullUp() {
-        this.bs.finishPullUp()
+        this.bs && this.bs.finishPullUp()
       },
       refresh(){
        

@@ -6,22 +6,43 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
       state:{
-        msg:123,
         cartList:[]
       },
       mutations:{
-        addCart(state,payLoad){
-          //接受外来参数，存入本地状态
-            state.cartList.push(payLoad)
+       AddCounter(state,payLoad){
+        payLoad.count++
         },
-        mutationTest(state){
-          console.log('mutations',state);
+        AddToCart(state,payLoad){
+         payLoad.checked = true
+          state.cartList.push(payLoad)
         }
+       
       },
       actions:{
-        actionsTest(context){
-          this.commit('mutationTest')
-          console.log('actions',context);
+        addCart({commit,state},payLoad){
+         
+          return new Promise((resolve,reject)=>{
+             //1.接受外来参数，存入本地状态
+          // let  oldProduct = null;
+          // for(let item of state.cartList){
+          //   // 判断id 和列表内是否重复
+          //   if(item.iid === payLoad.iid){
+          //     oldProduct = item;
+          //   }
+          // };
+          // 查找存储数据,传入是否重复
+          let oldProduct = state.cartList.find(item => item.iid === payLoad.iid)
+
+          if(oldProduct){
+              commit("AddCounter",oldProduct)
+              resolve('当前商品+1')
+          }else{
+            payLoad.count = 1 
+            commit("AddToCart", payLoad)
+            resolve("已添加新商品至购物车")
+          }
+          })
+
         }
       },
       getters:{},
