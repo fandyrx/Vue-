@@ -44,6 +44,8 @@ export default {
             // 4. probeType 为 3，任何时候都派发 scroll 事件，包括调用 scrollTo 或者触发 momentum 滚动动画
             probeType: this.probeType,
             pullUpLoad: this.pullUpLoad,
+            useTransition:false
+            //异常回弹？
     }), 
  
       // 3.监听滚动
@@ -59,17 +61,18 @@ export default {
       
     },
     methods:{
+      
       //2.返回顶部方法
       scrollTo(x,y, time = 300){
           //判断组件实例创建与否，已创建再执行，否则报错  下方可同理操作
-        this.bs &&  this.bs.scrollTo(x,y,time)
+            this.bs &&  this.bs.scrollTo(x,y,time)
       },
       //结束上拉
       finishPullUp() {
-        this.bs.finishPullUp()
+        this.bs && this.bs.finishPullUp()
       },
       refresh(){
-        console.log('Scroll refresh---');
+       
          this.bs && this.bs.refresh()
       },
       getScrollY() {
